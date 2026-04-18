@@ -12,6 +12,16 @@ public class Main {
         System.out.print("Pilih menu: ");
         int pilihan = input.nextInt();
 
+        if (pilihan == 1) {
+            System.out.println("Kamu pilih Tambah Catatan");
+        } else if (pilihan == 2) {
+            System.out.println("Kamu pilih Lihat Catatan");
+        } else if (pilihan == 3) {
+            System.out.println("Program selesai");
+        } else {
+            System.out.println("Pilihan tidak valid");
+        }
+
         System.out.println("Kamu memilih menu: " + pilihan);
     }
 }
