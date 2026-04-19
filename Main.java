@@ -1,8 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        ArrayList<String> catatan = new ArrayList<>();
 
         System.out.println("=== CATATAN HARIAN ===");
         System.out.println("1. Tambah Catatan");
@@ -13,9 +15,20 @@ public class Main {
         int pilihan = input.nextInt();
 
         if (pilihan == 1) {
-            System.out.println("Kamu pilih Tambah Catatan");
+            input.nextLine();
+            System.out.print("Tulis catatan: ");
+            String isi = input.nextLine();
+            catatan.add(isi);
+            System.out.println("Catatan berhasil di tambahkan");
         } else if (pilihan == 2) {
-            System.out.println("Kamu pilih Lihat Catatan");
+            if (catatan.isEmpty()) {
+                System.out.println("Belum ada catatan");
+            } else {
+                System.out.println("Daftar catatan:");
+                for (int i = 0; i < catatan.size(); i++) {
+                    System.out.println((i + 1) + "." + catatan.get(i));
+                }
+            }
         } else if (pilihan == 3) {
             System.out.println("Program selesai");
         } else {
@@ -23,5 +36,7 @@ public class Main {
         }
 
         System.out.println("Kamu memilih menu: " + pilihan);
+    input.close();
     }
+    
 }
