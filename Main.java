@@ -5,9 +5,6 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         ArrayList<String> catatan = new ArrayList<>();
-        catatan.add("Belajar java");
-        catatan.add("Ngoding CLI");
-        catatan.add("Kerjain Tugas");
 
         while (true) {
         System.out.println("\n=== CATATAN HARIAN ===");
@@ -36,7 +33,7 @@ public class Main {
             } else {
                 System.out.println("Daftar catatan:");
                 for (int i = 0; i < catatan.size(); i++) {
-                    System.out.println((i + 1) + "." + catatan.get(i));
+                    System.out.println((i + 1) + ". " + catatan.get(i));
                 }
             }
         } else if (pilihan == 3) {
@@ -45,9 +42,9 @@ public class Main {
             } else {
                 System.out.println("Daftar catatan");
                 for (int i = 0; i < catatan.size(); i++) {
-                    System.out.println((i+1) + "." + catatan.get(i));
+                    System.out.println((i+1) + ". " + catatan.get(i));
                 }
-                System.out.println("Pilih nomor catatan yang mau dihapus: ");
+                System.out.print("Pilih nomor catatan yang mau dihapus: ");
                  if (!input.hasNextInt()) {
             System.out.println("Input haarus angka!");
             input.next();
