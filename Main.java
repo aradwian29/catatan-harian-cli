@@ -10,7 +10,7 @@ public class Main {
         catatan.add("Kerjain Tugas");
 
         while (true) {
-        System.out.println("=== CATATAN HARIAN ===");
+        System.out.println("\n=== CATATAN HARIAN ===");
         System.out.println("1. Tambah Catatan");
         System.out.println("2. Lihat Catatan");
         System.out.println("3. Hapus Catatan");
@@ -18,8 +18,12 @@ public class Main {
 
 
         System.out.print("Pilih menu: ");
+        if (!input.hasNextInt()) {
+            System.out.println("Input harus angka!");
+            input.next();
+            continue;
+        }
         int pilihan = input.nextInt();
-
         if (pilihan == 1) {
             input.nextLine();
             System.out.print("Tulis catatan: ");
@@ -44,6 +48,11 @@ public class Main {
                     System.out.println((i+1) + "." + catatan.get(i));
                 }
                 System.out.println("Pilih nomor catatan yang mau dihapus: ");
+                 if (!input.hasNextInt()) {
+            System.out.println("Input haarus angka!");
+            input.next();
+            continue;
+            }
                 int nomorHapus = input.nextInt();
                 if (nomorHapus >= 1 && nomorHapus <= catatan.size()) {
                     catatan.remove(nomorHapus - 1);
