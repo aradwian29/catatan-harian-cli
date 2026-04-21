@@ -26,7 +26,8 @@ public class Main {
         System.out.println("1. Tambah Catatan");
         System.out.println("2. Lihat Catatan");
         System.out.println("3. Hapus Catatan");
-        System.out.println("4. Keluar");
+        System.out.println("4. Edit catatan");
+        System.out.println("5. Keluar");
 
 
         System.out.print("Pilih menu: ");
@@ -69,7 +70,7 @@ public class Main {
                 }
                 System.out.print("Pilih nomor catatan yang mau dihapus: ");
                  if (!input.hasNextInt()) {
-            System.out.println("Input haarus angka!");
+            System.out.println("Input harus angka!");
             input.next();
             continue;
             }
@@ -83,6 +84,32 @@ public class Main {
                 }
             }
         } else if (pilihan == 4) {
+            if (catatan.isEmpty()) {
+                System.out.println("Belum ada catatan yang bisa di edit");
+            } else {
+                System.out.println("Daftar catatan:");
+                for (int i = 0; i < catatan.size(); i++) {
+                    System.out.println((i + 1) + ". " + catatan.get(i));
+                }
+                System.out.println("Pilih nomor catatan yang mau di edit: ");
+                if (!input.hasNextInt()) {
+                    System.out.println("Input harus angka!");
+                    input.next();
+                    continue;
+                }
+                int nomorEdit = input.nextInt();
+                input.nextLine();
+                if (nomorEdit >= 1 && nomorEdit <= catatan.size()) {
+                    System.out.print("Tulis isi baru: ");
+                    String isiBaru = input.nextLine();
+                    catatan.set(nomorEdit - 1, isiBaru);
+                    simpanUlangFile(catatan);
+                    System.out.println("Catatan berhasil di update");
+                } else {
+                    System.out.println("Nomor tidak valid");
+                }
+            }
+        } else if (pilihan == 5) {
             System.out.println("Program selesai");
             break;
         } else {
@@ -93,7 +120,7 @@ public class Main {
     }
     public static void simpanUlangFile(ArrayList<String>catatan) {
         try {
-            FileWriter writer = new FileWriter("catatan.txt");
+            FileWriter writer = new FileWriter("Catatan.txt");
             for (String c : catatan) {
                 writer.write(c + "\n");
             }
