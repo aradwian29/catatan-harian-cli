@@ -22,23 +22,28 @@ public class Main {
         }
 
         while (true) {
-        System.out.println("\n=== CATATAN HARIAN ===");
-        System.out.println("1. Tambah Catatan");
+        System.out.println("===========================");
+        System.out.println("\n      CATATAN HARIAN      ");
+        System.out.println("\n===========================");
+        System.out.println("\n1. Tambah Catatan");
         System.out.println("2. Lihat Catatan");
         System.out.println("3. Hapus Catatan");
-        System.out.println("4. Edit catatan");
-        System.out.println("5. Keluar");
+        System.out.println("4. Edit Catatan");
+        System.out.println("5. Cari Catatan");
+        System.out.println("6. Keluar");
+        System.out.println("\n===========================");
 
+        System.out.print("\nPilih menu: ");
+        String inputUser = input.nextLine();
 
-        System.out.print("Pilih menu: ");
-        if (!input.hasNextInt()) {
+        int pilihan;
+        try {
+            pilihan = Integer.parseInt(inputUser);
+        } catch (NumberFormatException e) {
             System.out.println("Input harus angka!");
-            input.next();
             continue;
         }
-        int pilihan = input.nextInt();
         if (pilihan == 1) {
-            input.nextLine();
             System.out.print("Tulis catatan: ");
             String isi = input.nextLine();
             catatan.add(isi);
@@ -55,7 +60,7 @@ public class Main {
             if (catatan.isEmpty()) {
                 System.out.println("Belum ada catatan");
             } else {
-                System.out.println("Daftar catatan:");
+                System.out.println("\n---- DAFTAR CATATAN ----");
                 for (int i = 0; i < catatan.size(); i++) {
                     System.out.println((i + 1) + ". " + catatan.get(i));
                 }
@@ -64,17 +69,19 @@ public class Main {
             if (catatan.isEmpty()) {
                 System.out.println("Belum ada catatan yang bisa dihapus");
             } else {
-                System.out.println("Daftar catatan");
+                System.out.println("Daftar Catatan:");
                 for (int i = 0; i < catatan.size(); i++) {
-                    System.out.println((i+1) + ". " + catatan.get(i));
+                    System.out.println((i + 1) + ". " + catatan.get(i));
                 }
-                System.out.print("Pilih nomor catatan yang mau dihapus: ");
-                 if (!input.hasNextInt()) {
+                System.out.println("Pilih nomor catatan yang mau dihapus:");
+            String inputHapus = input.nextLine();
+            int nomorHapus;
+            try {
+                nomorHapus = Integer.parseInt(inputHapus);
+            } catch (NumberFormatException e) {
             System.out.println("Input harus angka!");
-            input.next();
             continue;
             }
-                int nomorHapus = input.nextInt();
                 if (nomorHapus >= 1 && nomorHapus <= catatan.size()) {
                     catatan.remove(nomorHapus - 1);
                     System.out.println("Catatan berhasil dihapus.");
@@ -92,13 +99,15 @@ public class Main {
                     System.out.println((i + 1) + ". " + catatan.get(i));
                 }
                 System.out.println("Pilih nomor catatan yang mau di edit: ");
-                if (!input.hasNextInt()) {
-                    System.out.println("Input harus angka!");
-                    input.next();
+                String inputEdit = input.nextLine();
+
+                int nomorEdit;
+                try {
+                    nomorEdit = Integer.parseInt(inputEdit);
+                } catch (NumberFormatException e) {
+                    System.out.println("Imput harus angka!");
                     continue;
                 }
-                int nomorEdit = input.nextInt();
-                input.nextLine();
                 if (nomorEdit >= 1 && nomorEdit <= catatan.size()) {
                     System.out.print("Tulis isi baru: ");
                     String isiBaru = input.nextLine();
@@ -110,14 +119,34 @@ public class Main {
                 }
             }
         } else if (pilihan == 5) {
+            if (catatan.isEmpty()) {
+                System.out.println("Belum ada catatan");
+            } else {
+                System.out.print("Masukkan kata kunci:");
+                String keyword = input.nextLine().toLowerCase();
+
+                boolean ditemukan = false;
+
+                System.out.println("Hasil pencarian:");
+                for (int i = 0; i < catatan.size(); i++) {
+                    if (catatan.get(i).toLowerCase().contains(keyword)) {
+                        System.out.println((i + 1) + ". " + catatan.get(i));
+                        ditemukan = true;
+                    }
+                }
+                if (!ditemukan) {
+                    System.out.println("Catatan tidak ditemukan.");
+                }
+            }
+        } else if (pilihan == 6) {
             System.out.println("Program selesai");
+            input.close();
             break;
         } else {
             System.out.println("Pilihan tidak valid");
         }
     }
-    input.close();
-    }
+} 
     public static void simpanUlangFile(ArrayList<String>catatan) {
         try {
             FileWriter writer = new FileWriter("Catatan.txt");
