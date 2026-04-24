@@ -7,12 +7,14 @@ Aplikasi sederhana berbasis java untuk mengelola catatan harian. Data disimpan k
 -Menu interaktif dengan loop
 -Validasi input angka
 -Data tersimpan ke file (tidak hilang saat program ditutup)
+-Cari catatan berdasarkan kata kunci
 ### Teknologi
 -Java
 -ArrayList
 -Scanner
 -Git & Github
 -File I/O (FileWriter, BufferedReader)
+-Scanner
 #### Cara menjalankan
 Pastikan java sudah terinstall di laptop/komputer
 1. Buka terminal di folder project
