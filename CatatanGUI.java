@@ -26,6 +26,7 @@ public class CatatanGUI {
         JTextField inputCatatan = new JTextField(20);
         JButton tombolTambah = new JButton("Tambah");
         JButton tombolHapus = new JButton("Hapus");
+        JButton tombolEdit = new JButton("Edit");
     
 
         panelInput.add(inputCatatan);
@@ -48,6 +49,61 @@ public class CatatanGUI {
                 }
             } else {
                 JOptionPane.showMessageDialog(frame, "!Catatan tidak boleh kosong!");
+            }
+        });
+
+        panelInput.add(tombolEdit);
+        tombolEdit.addActionListener(e -> {
+            String input = JOptionPane.showInputDialog(frame, "Masukkan nomor catatan yang mau di edit: ");
+            if (input == null || input.trim().isEmpty()) {
+                return;
+            }
+            try {
+                int nomor = Integer.parseInt(input.trim());
+                String[] semuaCatatan = areaCatatan.getText().split("\n");
+                if (nomor < 1 || nomor > semuaCatatan.length) {
+                    JOptionPane.showMessageDialog(frame, "Nomor tidak valid!");
+                    return;
+                }
+                String baris = semuaCatatan[nomor - 1];
+                int titik = baris.indexOf(". ");
+
+                String lama;
+                if (titik != - 1) {
+                    lama = baris.substring(titik + 2);
+                } else {
+                    lama = baris;
+                }
+                String baru = JOptionPane.showInputDialog(frame, "Edit catatan: ", lama);
+                if (baru == null || baru.trim().isEmpty()) {
+                    return;
+                }
+                semuaCatatan[nomor -1] = baru;
+
+                StringBuilder hasil = new StringBuilder();
+                for (String item : semuaCatatan) {
+                    hasil.append(item).append("\n");
+                }
+                areaCatatan.setText(hasil.toString());
+                try {
+                    FileWriter writer = new FileWriter("Catatan.txt");
+                    for (String item : semuaCatatan) {
+                        int idx = item.indexOf(". ");
+                        String bersih;
+                        if (idx != -1) {
+                            bersih = item.substring(idx + 2);
+                        } else {
+                            bersih = item;
+                        }
+                        writer.write(bersih + "\n");
+                    }
+                    writer.close();
+                    loadCatatan(areaCatatan);
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(frame, "Gagal update file!");
+                }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(frame, "Input harus angka!");
             }
         });
 
