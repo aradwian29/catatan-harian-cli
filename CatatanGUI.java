@@ -27,6 +27,8 @@ public class CatatanGUI {
         JButton tombolTambah = new JButton("Tambah");
         JButton tombolHapus = new JButton("Hapus");
         JButton tombolEdit = new JButton("Edit");
+        JButton tombolCari = new JButton("Cari");
+        JButton tombolReset = new JButton("Reset");
     
 
         panelInput.add(inputCatatan);
@@ -151,6 +153,46 @@ public class CatatanGUI {
                 JOptionPane.showMessageDialog(frame, "Input harus angka!");
             }
         });
+
+        panelInput.add(tombolCari);
+        panelInput.add(tombolReset);
+        tombolCari.addActionListener(e -> {
+            String keyword = JOptionPane.showInputDialog(frame, "Masukkan kata kunci: ");
+            if (keyword == null || keyword.trim().isEmpty()){
+                    return;
+                }
+            keyword = keyword.toLowerCase();
+            StringBuilder semua = new StringBuilder();
+            try{
+                BufferedReader reader = new BufferedReader(new FileReader("Catatan.txt"));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    semua.append(line).append("\n");
+                } 
+
+                reader.close();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(frame, "Gagal membaca file");
+            }
+            String[] semuaCatatan = semua.toString().split("\n");
+            StringBuilder hasil = new StringBuilder();
+            for (int i = 0; i < semuaCatatan.length; i++) {
+                String baris = semuaCatatan[i];
+
+                if (baris.toLowerCase().contains(keyword)) {
+                    hasil.append((i + 1) + ". " + baris).append("\n");
+                }
+            } 
+            if (hasil.length() == 0) {
+                JOptionPane.showMessageDialog(frame, "Catatan tidak ditemukan!");
+            } else {
+                areaCatatan.setText(hasil.toString());
+            }
+        });
+        tombolReset.addActionListener(e -> {
+            loadCatatan(areaCatatan);
+        });
+
         frame.add(panelInput, BorderLayout.SOUTH);
 
         frame.setVisible(true);
