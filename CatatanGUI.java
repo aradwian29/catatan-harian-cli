@@ -24,13 +24,12 @@ public class CatatanGUI {
         
         JPanel panelInput = new JPanel();
         JTextField inputCatatan = new JTextField(20);
+
         JButton tombolTambah = new JButton("Tambah");
         JButton tombolHapus = new JButton("Hapus");
         JButton tombolEdit = new JButton("Edit");
         JButton tombolCari = new JButton("Cari");
-        JButton tombolReset = new JButton("Reset");
-    
-
+        JButton tombolReset = new JButton("Reset"); 
         panelInput.add(inputCatatan);
 
         panelInput.add(tombolTambah);
@@ -134,6 +133,7 @@ public class CatatanGUI {
                         }
                     }
                     areaCatatan.setText(hasil.toString());
+                    areaCatatan.setText(hasil.toString());
 
                     try {
                     FileWriter writer = new FileWriter ("Catatan.txt");
@@ -157,7 +157,7 @@ public class CatatanGUI {
         panelInput.add(tombolCari);
         panelInput.add(tombolReset);
         tombolCari.addActionListener(e -> {
-            String keyword = JOptionPane.showInputDialog(frame, "Masukkan kata kunci: ");
+            String keyword = inputCatatan.getText().trim();
             if (keyword == null || keyword.trim().isEmpty()){
                     return;
                 }
@@ -191,6 +191,7 @@ public class CatatanGUI {
         });
         tombolReset.addActionListener(e -> {
             loadCatatan(areaCatatan);
+            inputCatatan.setText("");
         });
 
         frame.add(panelInput, BorderLayout.SOUTH);
